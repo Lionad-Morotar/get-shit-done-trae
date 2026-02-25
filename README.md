@@ -71,7 +71,7 @@ bash ~/.config/gsd-trae/install.sh
 /gsd:new-project
 ```
 
-![](https://mgear-image.oss-cn-shanghai.aliyuncs.com/image/other/20260225190733154.png)
+![](./assets/screenshot.png)
 
 ---
 
