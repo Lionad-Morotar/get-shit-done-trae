@@ -21,13 +21,25 @@ else
     cd "$GSD_SOURCE" && git pull >/dev/null 2>&1
 fi
 
-# 2. 在当前项目创建 .trae/rules 目录
+# 2. 检查是否已存在 project_rules.md
+if [ -f ".trae/rules/project_rules.md" ]; then
+    echo "❌ 错误: .trae/rules/project_rules.md 已存在"
+    echo ""
+    echo "如需重新安装，请先删除现有文件："
+    echo "   rm .trae/rules/project_rules.md"
+    echo ""
+    echo "或手动备份后重命名："
+    echo "   mv .trae/rules/project_rules.md .trae/rules/project_rules.md.backup"
+    exit 1
+fi
+
+# 3. 创建 .trae/rules 目录
 if [ ! -d ".trae/rules" ]; then
     echo "📁 创建 .trae/rules 目录..."
     mkdir -p ".trae/rules"
 fi
 
-# 3. 复制 project_rules.md
+# 4. 复制 project_rules.md
 PROJECT_RULES_SOURCE=""
 
 # 优先从脚本所在目录查找
