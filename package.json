@@ -1,0 +1,29 @@
+{
+  "name": "gsd-trae",
+  "version": "1.0.0",
+  "description": "GSD (Get Shit Done) framework adapter for Trae IDE",
+  "main": "bin/cli.js",
+  "bin": {
+    "gsd-trae": "bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "gsd",
+    "trae",
+    "ai",
+    "workflow",
+    "project-management"
+  ],
+  "author": "Lionad-Morotar",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lionad-Morotar/get-shit-done-trae.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Lionad-Morotar/get-shit-done-trae/issues"
+  },
+  "homepage": "https://github.com/Lionad-Morotar/get-shit-done-trae#readme"
+}

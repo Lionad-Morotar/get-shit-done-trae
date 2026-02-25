@@ -33,28 +33,39 @@ GSD 通过流程约束解决了**上下文衰减（Context Rot）**问题——�
 
 ## 快速开始
 
-### 1. 克隆项目
+### 方式一：使用 npx（推荐）
+
+在项目根目录运行：
 
 ```bash
-git clone <this-repo>
-cd get-shit-done-trae
+npx gsd-trae
 ```
 
-### 2. 配置 Trae
+### 方式二：使用 curl
 
-将 `.trae` 目录复制到你的项目根目录：
+在项目根目录运行：
 
 ```bash
-cp -r .trae /path/to/your/project/
+bash <(curl -s https://raw.githubusercontent.com/Lionad-Morotar/get-shit-done-trae/main/install.sh)
 ```
 
-或者手动创建 `.trae/rules/project_rules.md` 并复制本项目的规则内容。
+### 方式三：手动安装
 
-也可以参考下面“共享配置”章节，以便在多项目共享同一个 `project_rules.md`
+1. 克隆本仓库到固定位置：
 
-### 3. 开始工作
+```bash
+git clone https://github.com/Lionad-Morotar/get-shit-done-trae.git ~/.config/gsd-trae
+```
 
-在 Trae 的 AI 对话中输入：
+2. 运行安装脚本：
+
+```bash
+bash ~/.config/gsd-trae/install.sh
+```
+
+### 开始工作
+
+安装完成后，在 Trae 的 AI 对话中输入：
 
 ```
 /gsd:new-project
@@ -157,40 +168,23 @@ cp -r .trae /path/to/your/project/
 | `commit_docs`     | `true` / `false`                       | 是否将规划文档提交到 Git            |
 | `model_profile`   | `quality` / `balanced` / `budget`      | AI 模型选择策略                     |
 
-### 多项目共享配置
-
-如果你希望在多个项目中使用同一套 GSD 配置，可以通过**符号链接**（Symbolic Link）实现：
-
-```bash
-# 1. 将本仓库克隆到一个固定位置（如 ~/.config/gsd-trae）
-git clone <this-repo> ~/.config/gsd-trae
-
-# 2. 先创建 .trae/rules 目录
-mkdir -p /path/to/your/project/.trae/rules
-
-# 3. 创建符号链接
-ln -s ~/.config/gsd-trae/.trae/rules/project_rules.md /path/to/your/project/.trae/rules/project_rules.md
-
-# Windows (PowerShell 管理员)
-# New-Item -ItemType SymbolicLink -Path ".trae\rules\project_rules.md" -Target "C:\Users\<username>\.config\gsd-trae\.trae\rules\project_rules.md"
-```
-
-**优点：**
-
-- 一处修改，所有项目同步更新
-- 避免重复复制配置文件
-- 易于维护统一的团队规范
-
-**注意事项：**
-
-- 符号链接是只读引用，不要在项目中直接修改 `.trae/` 内容
-- 如需项目特定配置，可创建 `.trae/local/` 目录存放覆盖配置
-
 ---
 
 ## 参考
 
 - [GSD 原项目](https://github.com/glittercowboy/get-shit-done) - 官方仓库
+
+---
+
+## 工作原理
+
+安装脚本 `install.sh` 会执行以下操作：
+
+1. 将 GSD 源文件克隆到 `~/.gsd-source`
+2. 在当前项目创建 `.trae/rules/project_rules.md`
+3. `project_rules.md` 中的链接指向 `~/.gsd-source` 下的实际文件
+
+这样多个项目可以共享同一份 GSD 源文件，同时每个项目有自己的 Trae 规则配置。
 
 ---
 
