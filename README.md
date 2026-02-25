@@ -25,7 +25,7 @@ GSD 通过流程约束解决了**上下文衰减（Context Rot）**问题——�
 
 | 特性                     | 说明                                                           |
 | ------------------------ | -------------------------------------------------------------- |
-| `.trae/project_rules.md` | Trae 项目级规则，替代 `.claude/` 目录                          |
+| `.trae/rules/project_rules.md` | Trae 项目级规则，替代 `.claude/` 目录                          |
 | 完整工作流支持           | `/gsd:new-project`、`/gsd:plan-phase`、`/gsd:execute-phase` 等 |
 | 中文优化                 | 针对中文开发者优化的提示和文档                                 |
 
@@ -48,7 +48,7 @@ cd get-shit-done-trae
 cp -r .trae /path/to/your/project/
 ```
 
-或者手动创建 `.trae/project_rules.md` 并复制本项目的规则内容。
+或者手动创建 `.trae/rules/project_rules.md` 并复制本项目的规则内容。
 
 也可以参考下面“共享配置”章节，以便在多项目共享同一个 `project_rules.md`
 
@@ -165,11 +165,14 @@ cp -r .trae /path/to/your/project/
 # 1. 将本仓库克隆到一个固定位置（如 ~/.config/gsd-trae）
 git clone <this-repo> ~/.config/gsd-trae
 
-# 2. 在其他项目中创建符号链接
-ln -s ~/.config/gsd-trae/.trae/project_rules.md /path/to/your/project/.trae/project_rules.md
+# 2. 先创建 .trae/rules 目录
+mkdir -p /path/to/your/project/.trae/rules
+
+# 3. 创建符号链接
+ln -s ~/.config/gsd-trae/.trae/rules/project_rules.md /path/to/your/project/.trae/rules/project_rules.md
 
 # Windows (PowerShell 管理员)
-# New-Item -ItemType SymbolicLink -Path ".trae" -Target "C:\Users\<username>\.config\gsd-trae\.trae"
+# New-Item -ItemType SymbolicLink -Path ".trae\rules\project_rules.md" -Target "C:\Users\<username>\.config\gsd-trae\.trae\rules\project_rules.md"
 ```
 
 **优点：**
