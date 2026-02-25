@@ -1,0 +1,6 @@
+[submodule "refs/gsd"]
+	path = refs/gsd
+	url = https://github.com/glittercowboy/get-shit-done.git
+[submodule "refs/vbenchmark"]
+	path = refs/vbenchmark
+	url = https://github.com/alt-research/vibe-coding-benchmark-public.git
