@@ -1,6 +1,6 @@
 {
   "name": "gsd-trae",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "GSD (Get Shit Done) framework adapter for Trae IDE",
   "main": "bin/cli.js",
   "bin": {
