@@ -27,5 +27,12 @@
   "bugs": {
     "url": "https://github.com/Lionad-Morotar/get-shit-done-trae/issues"
   },
-  "homepage": "https://github.com/Lionad-Morotar/get-shit-done-trae#readme"
+  "homepage": "https://github.com/Lionad-Morotar/get-shit-done-trae#readme",
+  "files": [
+    "bin/",
+    "assets/",
+    "install.sh",
+    "README.md",
+    "CHANGELOG.md"
+  ]
 }
