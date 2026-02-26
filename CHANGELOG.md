@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2026-02-26
+
+### Changed
+- 添加 `files` 字段到 `package.json`，排除 `refs/` 目录，大幅减小 npm 包体积 (5.6MB → ~34KB)
+- 压缩 `assets/screenshot.png` (106KB → 26KB)
+
 ## [1.0.1] - 2026-02-26
 
 ### Added
