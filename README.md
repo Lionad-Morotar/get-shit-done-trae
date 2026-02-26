@@ -1,6 +1,6 @@
 # GSD for Trae
 
-为 [Trae](https://www.trae.ai/) 适配的 GSD（Get Shit Done）框架版本。
+为 [Trae](https://www.trae.ai/) 适配的 GSD（Get Shit Done）框架版本，aka get-shit-done-trae or gsd-trae。
 
 GSD 是一个轻量级、强大的元提示（Meta-prompting）、上下文工程（Context Engineering）和规格驱动开发（Spec-driven Development）系统。
 
