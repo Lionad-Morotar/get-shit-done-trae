@@ -4,8 +4,8 @@ import { existsSync, readFileSync } from 'fs';
 import { homedir } from 'os';
 import { join } from 'path';
 
-const TEST_DIR = '~/tmp/xxx';
-const EXPANDED_TEST_DIR = join(homedir(), 'tmp', 'xxx');
+const TEST_DIR = '/tmp/gsd-trae-e2e';
+const EXPANDED_TEST_DIR = '/tmp/gsd-trae-e2e';
 const GSD_SOURCE = join(homedir(), '.gsd-source');
 const GSDC = join(homedir(), '.gsdc');
 const INSTALL_SCRIPT = join(process.cwd(), 'install.sh');
