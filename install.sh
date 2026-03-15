@@ -21,7 +21,17 @@ else
     cd "$GSD_SOURCE" && git pull >/dev/null 2>&1
 fi
 
-# 2. 检查是否已存在 project_rules.md
+# 2. 创建 ~/.gsdc 符号链接（指向 ~/.gsd-source/commands/gsd）
+GSDC_PATH="$HOME/.gsdc"
+if [ -L "$GSDC_PATH" ]; then
+    rm "$GSDC_PATH"
+elif [ -e "$GSDC_PATH" ]; then
+    rm -rf "$GSDC_PATH"
+fi
+ln -s "$GSD_SOURCE/commands/gsd" "$GSDC_PATH"
+echo "🔗 创建符号链接: ~/.gsdc → $GSD_SOURCE/commands/gsd"
+
+# 3. 检查是否已存在 project_rules.md
 if [ -f ".trae/rules/project_rules.md" ]; then
     echo "❌ 错误: .trae/rules/project_rules.md 已存在"
     echo ""
@@ -33,13 +43,13 @@ if [ -f ".trae/rules/project_rules.md" ]; then
     exit 1
 fi
 
-# 3. 创建 .trae/rules 目录
+# 4. 创建 .trae/rules 目录
 if [ ! -d ".trae/rules" ]; then
     echo "📁 创建 .trae/rules 目录..."
     mkdir -p ".trae/rules"
 fi
 
-# 4. 复制 project_rules.md
+# 5. 复制 project_rules.md
 PROJECT_RULES_SOURCE=""
 
 # 优先从脚本所在目录查找
@@ -71,6 +81,7 @@ echo "✅ 安装完成！"
 echo ""
 echo "📍 文件位置:"
 echo "   GSD 源文件: $GSD_SOURCE"
+echo "   命令目录: ~/.gsdc (符号链接)"
 echo "   项目规则: $(pwd)/.trae/rules/project_rules.md"
 echo ""
 echo "🚀 开始使用:"
