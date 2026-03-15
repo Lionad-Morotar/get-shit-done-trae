@@ -8,10 +8,12 @@ const command = args[0];
 
 const scriptDir = path.join(__dirname, '..');
 
+const userCwd = process.cwd();
+
 if (command === 'uninstall' || command === '--uninstall' || command === '-u') {
   const uninstallScript = path.join(scriptDir, 'uninstall.sh');
   try {
-    execSync(`bash "${uninstallScript}"`, { stdio: 'inherit' });
+    execSync(`bash "${uninstallScript}"`, { stdio: 'inherit', cwd: userCwd });
   } catch (error) {
     console.error('卸载失败:', error.message);
     process.exit(1);
@@ -19,7 +21,7 @@ if (command === 'uninstall' || command === '--uninstall' || command === '-u') {
 } else {
   const installScript = path.join(scriptDir, 'install.sh');
   try {
-    execSync(`bash "${installScript}"`, { stdio: 'inherit' });
+    execSync(`bash "${installScript}"`, { stdio: 'inherit', cwd: userCwd });
   } catch (error) {
     console.error('安装失败:', error.message);
     process.exit(1);

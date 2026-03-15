@@ -29,34 +29,42 @@ else
     echo "   ℹ️  符号链接不存在，跳过"
 fi
 
-# 3. 删除当前项目的 project_rules.md
-if [ -f ".trae/rules/project_rules.md" ]; then
-    echo "📝 删除项目规则: .trae/rules/project_rules.md"
-    rm ".trae/rules/project_rules.md"
-    echo "   ✅ 已删除"
+# 3. 删除当前项目的 GSD 规则文档
+RULES_FILES=("project_rules.md" "gsd-agents.md" "gsd-references.md")
+RULES_DELETED=0
 
-    # 如果目录为空，询问是否删除
-    if [ -d ".trae/rules" ] && [ -z "$(ls -A .trae/rules 2>/dev/null)" ]; then
-        echo ""
-        read -p "🤔 .trae/rules 目录为空，是否删除？(y/N) " -n 1 -r
-        echo ""
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            rmdir ".trae/rules"
-            echo "   ✅ 已删除 .trae/rules"
+for file in "${RULES_FILES[@]}"; do
+    if [ -f ".trae/rules/$file" ]; then
+        echo "📝 删除项目规则: .trae/rules/$file"
+        rm ".trae/rules/$file"
+        echo "   ✅ 已删除"
+        RULES_DELETED=$((RULES_DELETED + 1))
+    fi
+done
 
-            # 检查 .trae 是否为空
-            if [ -d ".trae" ] && [ -z "$(ls -A .trae 2>/dev/null)" ]; then
-                read -p "🤔 .trae 目录为空，是否删除？(y/N) " -n 1 -r
-                echo ""
-                if [[ $REPLY =~ ^[Yy]$ ]]; then
-                    rmdir ".trae"
-                    echo "   ✅ 已删除 .trae"
-                fi
+if [ $RULES_DELETED -eq 0 ]; then
+    echo "   ℹ️  项目规则文件不存在，跳过"
+fi
+
+# 如果目录为空，询问是否删除
+if [ -d ".trae/rules" ] && [ -z "$(ls -A .trae/rules 2>/dev/null)" ]; then
+    echo ""
+    read -p "🤔 .trae/rules 目录为空，是否删除？(y/N) " -n 1 -r
+    echo ""
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        rmdir ".trae/rules"
+        echo "   ✅ 已删除 .trae/rules"
+
+        # 检查 .trae 是否为空
+        if [ -d ".trae" ] && [ -z "$(ls -A .trae 2>/dev/null)" ]; then
+            read -p "🤔 .trae 目录为空，是否删除？(y/N) " -n 1 -r
+            echo ""
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                rmdir ".trae"
+                echo "   ✅ 已删除 .trae"
             fi
         fi
     fi
-else
-    echo "   ℹ️  项目规则文件不存在，跳过"
 fi
 
 # 4. 检查是否有 .planning 目录

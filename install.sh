@@ -18,7 +18,7 @@ if [ ! -d "$GSD_SOURCE/.git" ]; then
     git clone --depth 1 "$GSD_REPO" "$GSD_SOURCE" >/dev/null 2>&1
 else
     echo "📥 更新 GSD 源文件..."
-    cd "$GSD_SOURCE" && git pull >/dev/null 2>&1
+    (cd "$GSD_SOURCE" && git pull >/dev/null 2>&1)
 fi
 
 # 2. 创建 ~/.gsdc 符号链接（指向 ~/.gsd-source/commands/gsd）
@@ -33,14 +33,10 @@ echo "🔗 创建符号链接: ~/.gsdc → $GSD_SOURCE/commands/gsd"
 
 # 3. 检查是否已存在 project_rules.md
 if [ -f ".trae/rules/project_rules.md" ]; then
-    echo "❌ 错误: .trae/rules/project_rules.md 已存在"
-    echo ""
-    echo "如需重新安装，请先删除现有文件："
-    echo "   rm .trae/rules/project_rules.md"
-    echo ""
-    echo "或手动备份后重命名："
-    echo "   mv .trae/rules/project_rules.md .trae/rules/project_rules.md.backup"
-    exit 1
+    BACKUP_FILE=".trae/rules/project_rules.md.backup.$(date +%Y%m%d%H%M%S)"
+    echo "⚠️  检测到已存在 .trae/rules/project_rules.md"
+    echo "📝 自动备份到: $BACKUP_FILE"
+    cp ".trae/rules/project_rules.md" "$BACKUP_FILE"
 fi
 
 # 4. 创建 .trae/rules 目录
@@ -49,31 +45,36 @@ if [ ! -d ".trae/rules" ]; then
     mkdir -p ".trae/rules"
 fi
 
-# 5. 复制 project_rules.md
-PROJECT_RULES_SOURCE=""
+# 5. 复制项目规则文档
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+RULES_SOURCE_DIR=""
 
 # 优先从脚本所在目录查找
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if [ -f "$SCRIPT_DIR/.trae/rules/project_rules.md" ]; then
-    PROJECT_RULES_SOURCE="$SCRIPT_DIR/.trae/rules/project_rules.md"
-elif [ -f "$SCRIPT_DIR/project_rules.md" ]; then
-    PROJECT_RULES_SOURCE="$SCRIPT_DIR/project_rules.md"
+if [ -d "$SCRIPT_DIR/.trae/rules" ]; then
+    RULES_SOURCE_DIR="$SCRIPT_DIR/.trae/rules"
+elif [ -d "$SCRIPT_DIR/.trae" ]; then
+    RULES_SOURCE_DIR="$SCRIPT_DIR/.trae"
 fi
 
-# 如果没找到，从远程仓库下载
-if [ -z "$PROJECT_RULES_SOURCE" ]; then
-    echo "📥 从远程仓库下载 project_rules.md..."
-    curl -fsSL "$REPO_URL/raw/main/.trae/rules/project_rules.md" -o ".trae/rules/project_rules.md" 2>/dev/null || \
-    curl -fsSL "$REPO_URL/raw/main/.trae/project_rules.md" -o ".trae/rules/project_rules.md" 2>/dev/null
-    if [ $? -eq 0 ]; then
-        echo "✅ project_rules.md 下载成功"
-    else
-        echo "❌ 无法下载 project_rules.md，请检查网络连接"
-        exit 1
-    fi
+# 定义需要复制的文件
+RULES_FILES=("project_rules.md" "gsd-agents.md" "gsd-references.md")
+
+if [ -n "$RULES_SOURCE_DIR" ]; then
+    # 从本地目录复制
+    for file in "${RULES_FILES[@]}"; do
+        if [ -f "$RULES_SOURCE_DIR/$file" ]; then
+            echo "📝 复制 $file..."
+            cp "$RULES_SOURCE_DIR/$file" ".trae/rules/$file"
+        fi
+    done
 else
-    echo "📝 复制 project_rules.md..."
-    cp "$PROJECT_RULES_SOURCE" ".trae/rules/project_rules.md"
+    # 从远程仓库下载
+    echo "📥 从远程仓库下载文档..."
+    for file in "${RULES_FILES[@]}"; do
+        curl -fsSL "$REPO_URL/raw/main/.trae/rules/$file" -o ".trae/rules/$file" 2>/dev/null && \
+            echo "   ✅ $file 下载成功" || \
+            echo "   ⚠️  $file 下载失败"
+    done
 fi
 
 echo ""
@@ -82,7 +83,10 @@ echo ""
 echo "📍 文件位置:"
 echo "   GSD 源文件: $GSD_SOURCE"
 echo "   命令目录: ~/.gsdc (符号链接)"
-echo "   项目规则: $(pwd)/.trae/rules/project_rules.md"
+echo "   项目规则: $(pwd)/.trae/rules/"
+echo "     - project_rules.md"
+echo "     - gsd-agents.md"
+echo "     - gsd-references.md"
 echo ""
 echo "🚀 开始使用:"
 echo "   在 Trae 中输入 /gsd:new-project"
