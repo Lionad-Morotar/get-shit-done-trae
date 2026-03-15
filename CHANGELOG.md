@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-03-16
+
+### Changed
+- 安装完成后的提示信息改为"在 Trae 中与 SOLO Coder 聊天时输入"
+
 ## [1.1.0] - 2026-03-16
 
 ### Added
