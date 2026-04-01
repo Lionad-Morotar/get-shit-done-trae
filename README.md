@@ -93,7 +93,7 @@ npx -y gsd-trae@latest uninstall
 
 ## Reference
 
-- [GSD 原项目](https://github.com/glittercowboy/get-shit-done) - 官方仓库
+- [GSD V1](https://github.com/glittercowboy/get-shit-done) - 官方仓库
 
 ## 许可证
 
