@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.36.0] - 2026-04-16
+
+### Changed
+- 版本号与 GSD 上游同步至 `1.36.0`
+- `README.md` 新增版本同步策略说明
+
 ## [1.1.1] - 2026-03-16
 
 ### Changed
