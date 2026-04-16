@@ -6,7 +6,7 @@
 set -e
 
 GSD_SOURCE="$HOME/.gsd-source"
-GSD_REPO="https://github.com/glittercowboy/get-shit-done.git"
+GSD_REPO="https://github.com/gsd-build/get-shit-done.git"
 REPO_URL="https://github.com/Lionad-Morotar/get-shit-done-trae"
 
 echo "🔧 安装 GSD for Trae..."
@@ -18,7 +18,7 @@ if [ ! -d "$GSD_SOURCE/.git" ]; then
     git clone --depth 1 "$GSD_REPO" "$GSD_SOURCE" >/dev/null 2>&1
 else
     echo "📥 更新 GSD 源文件..."
-    (cd "$GSD_SOURCE" && git pull >/dev/null 2>&1)
+    (cd "$GSD_SOURCE" && git remote set-url origin "$GSD_REPO" && git pull >/dev/null 2>&1)
 fi
 
 # 2. 创建 ~/.gsdc 符号链接（指向 ~/.gsd-source/commands/gsd）
