@@ -1,3 +1,15 @@
+## !Archived
+
+follow [get-shit-done](https://github.com/gsd-build/get-shit-done) readme to install gsd on trae
+
+```bash
+# Trae
+npx get-shit-done-cc --trae --global        # Install to ~/.trae/
+npx get-shit-done-cc --trae --local         # Install to ./.trae/
+```
+
+---
+
 # GSD for Trae
 
 为 [Trae](https://www.trae.ai/) 适配的 GSD（Get Shit Done）框架版本，aka get-shit-done-trae or gsd-trae。
